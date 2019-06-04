@@ -18,9 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class SettingParamActivity extends AppCompatActivity {
-    TextView txt_tempMax, txt_tempMin, txt_humiMax, txt_humiMin;
-    EditText edt_tempMax, edt_tempMin, edt_humiMax, edt_humiMin;
-    Button btn_commitTemp, btn_commitHumi;
+    TextView txt_tempMax, txt_tempMin, txt_humiMax, txt_humiMin , txt_lightMax , txt_lightMin;
+    EditText edt_tempMax, edt_tempMin, edt_humiMax, edt_humiMin , edt_lightMax , edt_lightMin;
+    Button btn_commitTemp, btn_commitHumi , btn_commitLight;
     Toolbar toolbar;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -42,6 +42,11 @@ public class SettingParamActivity extends AppCompatActivity {
         edt_tempMin = findViewById(R.id.edtTempMin);
         btn_commitHumi = findViewById(R.id.btnCommitHumi);
         btn_commitTemp = findViewById(R.id.btnCommitTemp);
+       // txt_lightMax = findViewById(R.id.txtLightMax);
+        txt_lightMin = findViewById(R.id.txtLightMin);
+       // edt_lightMax = findViewById(R.id.edtLightMax);
+        edt_lightMin = findViewById(R.id.edtLightMin);
+        btn_commitLight = findViewById(R.id.btnCommitLight);
         databaseReference.child("Param").child("Nhiệt Độ").child("Ngưỡng dưới").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,6 +99,19 @@ public class SettingParamActivity extends AppCompatActivity {
 
             }
         });
+        databaseReference.child("Param").child("Ánh sáng").child("Ngưỡng dưới").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String minLight = String.valueOf(dataSnapshot.getValue());
+                minLight = minLight + "%";
+                txt_lightMin.setText("Min: " + minLight);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         btn_commitTemp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +155,21 @@ public class SettingParamActivity extends AppCompatActivity {
                         int newMinTemp = Integer.parseInt(edt_humiMin.getText().toString());
                         databaseReference.child("Param").child("Độ Ẩm").child("Ngưỡng trên").setValue(newMaxTemp);
                         databaseReference.child("Param").child("Độ Ẩm").child("Ngưỡng dưới").setValue(newMinTemp);
+                    }
+                }
+
+            }
+        });
+        btn_commitLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edt_lightMin.getText().toString().length() == 0 ) {
+                    Toast.makeText(SettingParamActivity.this, "Nhập thông số", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (edt_lightMin.getText().toString().length() != 0) {
+                        int newMinLight = Integer.parseInt(edt_lightMin.getText().toString());
+                        databaseReference.child("Param").child("Ánh Sáng").child("Ngưỡng dưới").setValue(newMinLight);
+
                     }
                 }
 

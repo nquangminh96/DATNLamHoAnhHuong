@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     AlertDialog.Builder mBuilderWait;
     AlertDialog mDialogWait;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,32 +40,45 @@ public class RegisterActivity extends AppCompatActivity {
         edt_pass = findViewById(R.id.password);
         edt_email = findViewById(R.id.email);
         btn_register = findViewById(R.id.register);
-        toolbar=findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         auth = FirebaseAuth.getInstance();
+
         mBuilderWait = new AlertDialog.Builder(RegisterActivity.this);
+
         LayoutInflater inflater = getLayoutInflater();
         View viewPleaseWait = inflater.inflate(R.layout.dialog_please_wait, null);
+
         mBuilderWait.setView(viewPleaseWait);
         mDialogWait = mBuilderWait.create();
+
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialogWait.show();
                 String user = edt_user.getText().toString();
                 String email = edt_email.getText().toString();
                 String pass = edt_pass.getText().toString();
-                Register(user, email,pass);
+                if (user.trim().length() == 0 || email.trim().length() == 0 || pass.trim().length() == 0) {
+                    Toast.makeText(RegisterActivity.this, "Vui lòng nhập thông tin", Toast.LENGTH_SHORT).show();
+                }
+                if (user.trim().length() != 0 && email.trim().length() != 0 && pass.trim().length() != 0) {
+                    mDialogWait.show();
+                    Register(user, email, pass);
+                }
             }
         });
     }
+
     private void Register(final String username, String email, String pass) {
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     assert firebaseUser != null;
                     String userid = firebaseUser.getUid();
@@ -78,19 +92,22 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 mDialogWait.dismiss();
                                 finish();
                             }
                         }
                     });
+
                 } else {
                     mDialogWait.dismiss();
-                    Toast.makeText(RegisterActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -4,128 +4,285 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingParamActivity"
     android:background="@color/colorPrimary"
-    >
+    tools:context=".SettingParamActivity">
+
     <include
         android:id="@+id/toolbar"
-        layout="@layout/bar_layout"
-        ></include>
+        layout="@layout/bar_layout"></include>
+
     <LinearLayout
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical"
-        android:weightSum="2"
-        >
+        android:weightSum="3">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/size0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="6"
-            >
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/size0dp"
-              android:layout_weight="1"
-              >
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Nhiệt độ"
-                  android:layout_centerInParent="true"
-                  android:textColor="@color/colorWhite"
-                  android:textSize="30sp"
-                  />
-          </RelativeLayout>
+            android:weightSum="5">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max: "
-                    android:id="@+id/txtTempMax"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:text="Nhiệt độ"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    />
+                    android:textSize="30sp" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size0dp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="@dimen/size0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/size10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/txtTempMax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:text="Max: "
+                            android:textColor="@color/colorWhite"
+                            android:textSize="30sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtTempMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:hint="Nhập nhiệt độ max"
+                            android:inputType="number"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="#72eadd"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:theme="@style/EditTextTheme" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/size0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/txtTempMin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:text="Min: "
+                            android:textColor="@color/colorWhite"
+                            android:textSize="30sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtTempMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:hint="Nhập nhiệt độ min"
+                            android:inputType="number"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="#72eadd"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:theme="@style/EditTextTheme" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <EditText
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnCommitTemp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập vào nhiệt độ max"
-                    android:id="@+id/edtTempMax"
-                    android:theme="@style/EditTextTheme"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:textColorHint="#72eadd"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    android:inputType="number"
-                    />
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="@dimen/size10dp"
+                    android:layout_marginRight="@dimen/size20dp"
+                    android:layout_marginBottom="@dimen/size10dp"
+                    android:background="#0a685e"
+                    android:text="Xác Nhận"
+                    android:textColor="@color/colorWhite" />
             </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="5">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Min: "
-                    android:id="@+id/txtTempMin"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:text="Độ ẩm"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    />
+                    android:textSize="30sp" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size0dp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="@dimen/size0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/txtHumiMax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:text="Max: "
+                            android:textColor="@color/colorWhite"
+                            android:textSize="30sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtHumiMax"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:hint="Nhập độ ẩm max"
+                            android:inputType="number"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="#72eadd"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:theme="@style/EditTextTheme" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/size0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/txtHumiMin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:text="Min: "
+                            android:textColor="@color/colorWhite"
+                            android:textSize="30sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtHumiMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:hint="Nhập độ ẩm min"
+                            android:inputType="number"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="#72eadd"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:theme="@style/EditTextTheme" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <EditText
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnCommitHumi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập vào nhiệt độ min"
-                    android:inputType="number"
-                    android:id="@+id/edtTempMin"
-                    android:theme="@style/EditTextTheme"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:textColorHint="#72eadd"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-               <Button
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/colorWhite"
-                   android:text="Xác Nhận"
-                   android:background="#0a685e"
-                   android:id="@+id/btnCommitTemp"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginRight="@dimen/size20dp"
-                   android:layout_marginTop="@dimen/size10dp"
-                   android:layout_marginBottom="@dimen/size10dp"
-                   />
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="@dimen/size10dp"
+                    android:layout_marginRight="@dimen/size20dp"
+                    android:layout_marginBottom="@dimen/size10dp"
+                    android:background="#0a685e"
+                    android:text="Xác Nhận"
+                    android:textColor="@color/colorWhite" />
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -133,109 +290,89 @@
             android:layout_height="@dimen/size0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="6"
-            >
+            android:weightSum="5">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Độ ẩm"
                     android:layout_centerInParent="true"
+                    android:text="Ánh Sáng"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    />
+                    android:textSize="30sp" />
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size0dp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="@dimen/size0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/txtLightMin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:text="Min: "
+                            android:textColor="@color/colorWhite"
+                            android:textSize="30sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size0dp"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtLightMin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size10dp"
+                            android:hint="Nhập cường độ min"
+                            android:inputType="number"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="#72eadd"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:theme="@style/EditTextTheme" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Max: "
-                    android:id="@+id/txtHumiMax"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nhập vào độ ẩm max"
-                    android:id="@+id/edtHumiMax"
-                    android:theme="@style/EditTextTheme"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:textColorHint="#72eadd"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    android:inputType="number"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Min: "
-                    android:id="@+id/txtHumiMin"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nhập vào độ ẩm min"
-                    android:inputType="number"
-                    android:theme="@style/EditTextTheme"
-                    android:textCursorDrawable="@drawable/cursor"
-                    android:textColorHint="#72eadd"
-                    android:id="@+id/edtHumiMin"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginLeft="@dimen/size10dp"
-                    android:layout_centerVertical="true"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size0dp"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+
                 <Button
+                    android:id="@+id/btnCommitLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:text="Xác Nhận"
-                    android:id="@+id/btnCommitHumi"
-                    android:background="#0a685e"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="@dimen/size20dp"
                     android:layout_marginTop="@dimen/size10dp"
+                    android:layout_marginRight="@dimen/size20dp"
                     android:layout_marginBottom="@dimen/size10dp"
-                    />
+                    android:background="#0a685e"
+                    android:text="Xác Nhận"
+                    android:textColor="@color/colorWhite" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

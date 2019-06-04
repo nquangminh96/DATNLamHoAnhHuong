@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.datn20182.Notifications.Token;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog.Builder mBuilderWait;
     AlertDialog mDialogWait;
     TextView txt_reset_pass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,52 +41,65 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.login);
         createacc = findViewById(R.id.createAccount);
         txt_reset_pass = findViewById(R.id.forgot_password);
+
         mBuilderWait = new AlertDialog.Builder(LoginActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View viewPleaseWait = inflater.inflate(R.layout.dialog_please_wait, null);
         mBuilderWait.setView(viewPleaseWait);
         mDialogWait = mBuilderWait.create();
+
         auth = FirebaseAuth.getInstance();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialogWait.show();
+
                 String email = edt_email.getText().toString();
                 String pass = edt_pass.getText().toString();
-                auth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            startActivityForResult(intent,11);
-                            mDialogWait.dismiss();
-                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                            String userID = firebaseUser.getUid();
+                if (email.trim().length() == 0 || pass.trim().length() == 0) {
+                    Toast.makeText(LoginActivity.this, "Vui Lòng nhập thông tin", Toast.LENGTH_SHORT).show();
+                }
+                if (email.trim().length() != 0 && pass.trim().length() != 0) {
+                    mDialogWait.show();
+                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivityForResult(intent, 11);
+                                mDialogWait.dismiss();
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                String userID = firebaseUser.getUid();
 //                            updateToken(userID, FirebaseInstanceId.getInstance().getToken());
-                            finish();
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                                mDialogWait.dismiss();
+                            }
+
                         }
-                    }
-                });
+                    });
+                }
+
 
             }
         });
         createacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivityForResult(intent , 11);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivityForResult(intent, 11);
             }
         });
         txt_reset_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-                startActivityForResult(intent,11);
+                startActivityForResult(intent, 11);
             }
         });
     }
-    private void updateToken(String userId , String token) {
 
+    private void updateToken(String userId, String token) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token1 = new Token(token);
         databaseReference.child(userId).setValue(token1);

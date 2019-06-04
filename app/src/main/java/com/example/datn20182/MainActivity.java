@@ -247,50 +247,35 @@ public class MainActivity extends AppCompatActivity {
         device.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setContentView(R.layout.dialog_device);
-                final RadioButton rbLevel0, rbLevel1, rbLevel2, rbLevel3, rbLevel4;
-                rbLevel0 = dialog.findViewById(R.id.RadioButtonLevel0ControlPower);
-                rbLevel1 = dialog.findViewById(R.id.RadioButtonLevel1ControlPower);
-
-                TextView text = dialog.findViewById(R.id.text);
-                text.setText("Device Control");
-                databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("Device").child("Level").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        switch (Objects.requireNonNull(dataSnapshot.getValue()).toString()) {
-                            case "0": {
-                                rbLevel0.setChecked(true);
-                                break;
+                startActivityForResult(new Intent(MainActivity.this, ListDeviceActivity.class), 11);
+            }
+        });
+        databaseReference.child("Param").child("Ánh sáng").child("Ngưỡng dưới").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    final int minLight = Integer.parseInt(String.valueOf(dataSnapshot.getValue()));
+                    databaseReference.child("Param").child("Ánh sáng").child("Ánh sáng hiện tại").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String light = String.valueOf(dataSnapshot.getValue());
+                            int curentLight = Integer.parseInt(light);
+                            if (curentLight < minLight) {
+                                databaseReference.child("Device").child("Đèn bàn").setValue(1);
                             }
-                            case "1": {
-                                rbLevel1.setChecked(true);
-                                break;
-                            }
-                            default:
-                                break;
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-                rbLevel0.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        databaseReference.child("Device").child("Level").setValue(0);
-                    }
-                });
-                rbLevel1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        databaseReference.child("Device").child("Level").setValue(1);
-                    }
-                });
-                dialog.show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
         // updateToken(FirebaseInstanceId.getInstance().getToken());
